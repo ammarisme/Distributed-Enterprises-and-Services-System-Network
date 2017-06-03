@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.title = "All Retailers";
+}
+<title>@ViewBag.title</title>
+
+<div class="panel sub-content-panel col-md-12">
+    <h5>@ViewBag.title</h5>
+    <table id="retailers-table" class="display table table-hover table-striped " cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>RetailerId</th>
+                <th>Name</th>
+                <th>RetailerAddress</th>
+                <th>BusinessPhoneNumber</th>
+                <th>Status</th>
+                <th>BRCNumber</th>
+                <th>Category</th>
+                <th>Currency</th>
+                <th>Country</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>RetailerId</th>
+                <th>Name</th>
+                <th>RetailerAddress</th>
+                <th>BusinessPhoneNumber</th>
+                <th>Status</th>
+                <th>BRCNumber</th>
+                <th>Category</th>
+                <th>Currency</th>
+                <th>Country</th>
+                <th>Region</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+
+
+@section script{
+    <script>
+
+        // Initiated retailer DT
+        var onretailerSelection = function () {
+            var id = getTableSelectedRowKey($("#retailers-table"));
+        }
+
+        var retailersTable = initiateTable1("retailers-table", 
+            {
+                "bLengthChange": false, "columns": [
+                { "data" : "RetailerId" },
+                { "data" : "RetailerName" },
+                { "data" : "RetailerAddress" },
+                { "data" : "BusinessPhoneNumber" },
+                { "data" : "Status" },
+                { "data" : "BRCNumber" },
+                { "data" : "Category" },
+                { "data" : "Currency" },
+                { "data" : "Country" },
+                { "data" : "Region" }
+                ],
+                fullreport: true,
+                reportname : "Retailers (Wholesale Customers)"
+            }
+            , onretailerSelection, function () { });
+
+        $(".navigation-help").html("Retailers / All retailers");
+        updateTableFromApi(retailersTable, "../../api/Retailers/GetRetailers", function () { });
+        
+    </script>
+}

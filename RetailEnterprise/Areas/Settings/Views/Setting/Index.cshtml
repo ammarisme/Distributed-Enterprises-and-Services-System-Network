@@ -1,0 +1,52 @@
+﻿@using RetailEnterprise.Areas.Customers.Models
+
+    @model AddCustomerViewModel
+    @{
+        ViewBag.Title = "Manage Settings";
+
+    }
+
+    <title>@ViewBag.title</title>
+    <h5>@ViewBag.title</h5>
+
+    <div class="panel sub-content-panel col-md-12">
+        <form action="no-implementation" id="settings-form" method="POST">
+            <div id="name-group" class="form-group">
+                <label for="name">System Id Number</label>
+                <input type="number" class="form-control custom-text-box" step="1" min="1" name="SystemIdNumber"/>
+            </div>
+            <div id="name-group" class="form-group">
+                <label for="name">Enterprise Name</label>
+                <input type="text" class="form-control custom-text-box" name="Name" />
+            </div>
+            <div id="name-group" class="form-group">
+                <label for="name">Report Head</label>
+                <input type="text" class="form-control custom-text-box" name="ReportHead" />
+            </div>
+            <div id="name-group" class="form-group">
+                <label for="name">Logo</label>
+                <input type="text" class="form-control custom-text-box" name="Logo" />
+            </div>
+            
+            <input type="submit" class="btn btn-primary btn-raised" value="Update Settings" />
+        </form>
+    </div>
+
+    @section script
+        {
+        <script>
+            // lets overriding existing settings in the db
+            $("#settings-form").on('submit', function (event) {
+                var data = getFormValues("settings-form");
+                sendObjectToServer("../../api/Settings/UpdateSettings", data, function () {
+                    
+                }, function () {
+                    
+                });
+                event.preventDefault();
+            });
+
+            // nav btn
+            $(".navigation-help").html("Settings / Update settings");
+        </script>
+    }

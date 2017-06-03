@@ -1,0 +1,98 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#" data-activates="slide-out" class="btn btn-raised button-collapse show-on-large" style="margin-left : 5px;"><i class="material-icons pull-right">chevron_right</i></a>
+            }
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="" withpjax="with-ajax" data-pjax=".content-panel" class="btn navigation-help btn-flat"></a></li>
+                <!--  Login / Register Link-->
+                <!-- Account links -->
+                <li class="dropdown">
+                    <a style="margin-right: 20px;" href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        @User.Identity.Name
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a id="dashboard-link" withpjax="with-ajax" data-pjax=".content-panel" href="/Accounts/Account/Dashboard" >Dashboard</a></li>
+                        <li>
+                            <!-- Logout button -->
+                            @using (Html.BeginForm("LogOff", "../Accounts/Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-default btn-raised logoff-button" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off <i class="material-icons pull-right">directions_run</i></a>
+                            </li>
+                            }
+                        </ul>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <ul id="slide-out" class="side-nav custom-side-nav">
+        @*<li class="header">HEADER</li>*@
+        <!-- Optionally, you can add icons to the links -->
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Manage Enterprises</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Enterprises/Enterprise/AddEnterprise">Add Enterprise</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Enterprises/Enterprise/EditEnterprises">Edit Enterprises</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Enterprises/Enterprise/ViewAllEnterprises">View All Enterprises</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Enterprises/Enterprise/ManageEnterpriseServices">Add/Remove Enterprise Services</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Enterprises/Enterprise/AddRemoveAccountEnterprises">Add/Remove Account Enterprises</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ManageAccountEnterprises">Accounts/Enterprises integration</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Manage Services</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Services/Service/ManageServices">Manage Services</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Services/Service/AddRemoveAccountServices">Add/Remove Service to Account</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Services/Service/ManageServiceUsers">Services/Enterprise integration</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Services/Service/ManageServiceAccounts">Services/Accounts integration</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Manage Accounts</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/AddAccount">Create Account</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ManageAccounts">Manage Accounts</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ManageMyAccount">My Account</a></li>
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("EnterpriseUser"))
+        {
+            
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Account</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ManageMyAccount">My Account</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ChangePassword">ChangePassword</a></li>
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("Customer"))
+        {
+
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Account</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ManageMyAccount">My Account</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/Account/ChangePassword">ChangePassword</a></li>
+                </ul>
+            </li>
+        }
+    </ul>
+

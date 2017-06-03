@@ -1,0 +1,162 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            <!-- Navigation toggle buttton -->
+            @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>*@
+            <!-- Brand logo -->
+            @*<a class="navbar-brand" href="javascript:void(0)">WholesaleEnterprise</a>*@
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#" data-activates="slide-out" class="btn btn-raised button-collapse show-on-large" style="margin-left : 5px;"><i class="material-icons pull-right">chevron_right</i></a>
+            }
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="" withpjax="with-ajax" data-pjax=".content-panel" class="btn navigation-help btn-flat"></a></li>
+                <!--  Login / Register Link-->
+                <!-- Account links -->
+                <li class="dropdown">
+                    <a style="margin-right: 20px;" href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        @User.Identity.Name
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a id="dashboard-link" withpjax="with-ajax" data-pjax=".content-panel" href="/Accounts/MyAccount/Dashboard" >Dashboard</a></li>
+                        <li>
+                            <!-- Logout button -->
+                            @using (Html.BeginForm("LogOff", "../Accounts/MyAccount", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-default btn-raised logoff-button" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off <i class="material-icons pull-right">directions_run</i></a>
+                            </li>
+                            }
+                        </ul>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <ul id="slide-out" class="side-nav custom-side-nav">
+        @*<li class="header">HEADER</li>*@
+        <!-- Optionally, you can add icons to the links -->
+        @if (User.IsInRole("Manager"))
+        {
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Products</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/Create">Create Product(s)</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/Edit">Edit Product(s)</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/ViewAll">View All Products</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Stocks</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/AddStocks">Add Stocks</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/ViewCurrentStock">View Current Stock</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/DeductStockWaste">Deduct Stocks waste</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Purchase Orders</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../PurchaseOrders/MyPurchaseOrders/ViewPurchaseOrders">View P/O(s)</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../PurchaseOrders/MyPurchaseOrders/AddPurchaseOrder">Create new P/O</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Sales</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/AddRetailSale">New Retail Sale</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/AddWholesaleSale">New Wholesale Sale</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/ProcessSales">Process Sales</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Quotations</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Quotations/MyQuotations/SentQuotations">Sent Quotations</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Quotations/MyQuotations/RequestsRecieved">Recieved Requests for Quotes</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>My Customers</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AddCustomer">New Customer</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AllCustomers">All Customers(Retail Customers)</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/MyRetailers/AllRetailers">All Retailers (Wholesale Customers)</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Accounts</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/MyProfile">My Profile</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/ChangePassword">Change Password</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/AddAccount">Create Account</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/AllAccounts">All Accounts</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/EditAccounts">Edit Accounts</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Reports</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/Retailer/Manage">P/O history</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/Retailer/Manage">Stocks history</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/Retailer/Manage">Sales history</a></li>
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("Staff"))
+        {
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Products</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/ViewAll">View All Products</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i><span>Stocks</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/AddStocks">Add Stocks</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/ViewCurrentStock">View Current Stock</a></li>
+                </ul>
+            </li>
+            
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>Sales</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/AddNewSale">Add new Sale</a></li>
+                    @*<li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MyRetailOrder/Edit">Edit Orders</a></li>*@
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/ProcessSales">Process Sales</a></li>
+                </ul>
+            </li>
+            
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>My Customers</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AddCustomer">New Customer</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AllCustomers">All Customers</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="material-icons pull-right">arrow_drop_down_circle</i> <span>My Account</span> </a>
+                <ul>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/MyProfile">My Profile</a></li>
+                    <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/ChangePassword">Change Password</a></li>
+                </ul>
+            </li>
+            
+        }
+
+
+    </ul>
+

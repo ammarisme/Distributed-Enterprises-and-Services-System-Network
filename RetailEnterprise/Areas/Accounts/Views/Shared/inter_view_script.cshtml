@@ -1,0 +1,37 @@
+﻿<script>
+    // this script will be executed after each view in .content-panel loads
+
+    // showing and hiding dashboard link depending on where u are
+    if (history.state == null || history.state["title"]=="Enterprise Dashboard") {
+        $("#dashboard-link").hide();
+    } else {
+        $("#dashboard-link").show();
+    }
+
+    // this is to make sure pjax won't automatically go to browser default loading after a timout
+    $.pjax.defaults.timeout = false;
+
+    // pjaxification of all links in the .content-panel
+    $('a[withpjax]').each(function () {
+        
+        $(this).pjax(
+            {
+                container: ".content-panel",
+            }
+        );
+    });
+
+    // if you find a date selector, default must be today.
+    Date.prototype.toDateInputValue = (function () {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
+    $('input[type="date"]').val(new Date().toDateInputValue());
+
+    //uncomment following code, if manually placed report generator button is in use. VIVA
+    $(".report-button").on('click', function (event) {
+        generate(event.target);
+    });
+
+    </script>

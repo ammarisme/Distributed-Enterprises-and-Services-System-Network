@@ -1,0 +1,108 @@
+﻿@using IntegrationSystem.Areas.Accounts.Models
+@model DashboardViewModel
+
+@{
+    ViewBag.Title = "Integration System Dashboard";
+}
+
+<title>@ViewBag.title</title>
+
+<div class="row">
+    @if (Model.ServiceStatuses != null)
+    {
+        
+    <h5>Services </h5>
+    foreach (var service in @Model.ServiceStatuses)
+    {
+        if (service.Status == true)
+        {
+            <div class="alert alert-dismissible alert-success col-md-3" style="margin:10px">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    <ul>
+                        <li><strong>Service Id :</strong>@service.ServiceId</li>
+                        <li><strong>Service Name: </strong>@service.Type</li>
+                        <li><strong>Uri: </strong><a href="@service.Uri">@service.Uri</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-dismissible alert-danger col-md-3" style="margin:10px">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    <ul>
+                        <li><strong>Service Id :</strong>@service.ServiceId</li>
+                        <li><strong>Name: </strong>@service.Type</li>
+                        <li><strong>Uri: </strong><a href="@service.Uri">@service.Uri</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+
+    }
+    }
+</div>
+<div class="row ">
+    @if (Model.EnterpriseStatuses!=null)
+    {
+    <h5>Enterprise Systems </h5>
+    foreach (var enterprise in @Model.EnterpriseStatuses)
+    {
+        if (enterprise.Status == true)
+        {
+            <div class="alert alert-dismissible alert-success col-md-3" style="margin:10px">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    <ul>
+                    <li><strong>Enterprise Id : </strong> @enterprise.EnterpriseId</li>
+                        <li><strong>Name: </strong>@enterprise.EnterpriseName</li>
+                        <li><strong>Uri: </strong><a href="@enterprise.Uri">@enterprise.Uri</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-dismissible alert-danger col-md-3" style="margin:10px">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    <ul>
+                        <li><strong>Enterprise Id : </strong> @enterprise.EnterpriseId</li>
+                        <li><strong>Name: </strong>@enterprise.EnterpriseName</li>
+                        <li><strong>Uri: </strong><a href="@enterprise.Uri">@enterprise.Uri</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+
+    }
+    }
+</div>
+@section script{
+    <script>
+        $(".navigation-help").html("Dashboard");
+
+        //$(document).ready(function () {
+        //    var reload = function () {
+        //        setInterval(10000);
+        //    }
+
+        //    var refresh = function () {
+        //        $.ajax({
+        //            url: "/echo/html/",
+        //            data: data,
+        //            type: "GET",
+        //            success: function (response) {
+        //                setTimeout(reload, 3000);
+        //            }
+        //        });
+        //    };
+
+        //    refresh();
+        //});
+
+    </script>
+
+    }

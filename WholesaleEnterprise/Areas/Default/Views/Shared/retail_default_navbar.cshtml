@@ -1,0 +1,45 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            <a href="#" id="RetailCart" class="btn btn-raised btn-primary"><i class="material-icons">shopping_cart</i>Visit Retail Market</a>
+            <a href="#" id="RetailCart" class="btn btn-raised btn-default"><i class="material-icons">shopping_cart</i>Visit Wholesale Market</a>
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Account links -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                
+                <li class="dropdown">
+                    <a href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        My Account
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/RetailOrders/MyRetailOrder/PlacedOrders">My Orders</a></li>
+                        <li><a href="/Customers/Customer/Manage">My Profile</a></li>
+                        <li  class="divider"></li>
+                            <!-- Logout button -->
+                        @using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </li>
+                        }
+                            
+                    </ul>
+                </li>
+                }
+                else
+                {
+                    <li><a href="/Accounts/MyAccount/Login" class="btn btn-raised btn-default custom-navbar-links" style="margin-right: 20px; ">Login</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

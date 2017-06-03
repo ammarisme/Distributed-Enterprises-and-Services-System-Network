@@ -1,0 +1,167 @@
+﻿@using IntegrationSystem.Areas.Enterprises.Models
+@model AddEnterprisesToAccountViewModel
+
+    @{
+        ViewBag.title = "Add/Remove Enterprises to Accounts";
+    }
+    <title>@ViewBag.title</title>
+    <h5>@ViewBag.title</h5>
+
+    <div class="col-md-12 panel sub-content-panel">
+        <h6>Accounts :</h6>
+        <table id="accounts-table" class="display table table-hover table-striped" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>PhoneNumber</th>
+                    <th>Status</th>
+                    <th>Designation</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>PhoneNumber</th>
+                    <th>Status</th>
+                    <th>Designation</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+    <div class="col-md-12 panel sub-content-panel">
+        <h6>Enterprises :</h6>
+        <table id="enterprises-table" class="display table table-hover table-striped" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>EnterpriseId</th>
+                    <th>EnterpriseTypeId</th>
+                    <th>EnterpriseName</th>
+                    <th>BRCNumber</th>
+                    <th>Category</th>
+                    <th>Country</th>
+                    <th>Region</th>
+                    <th>Uri</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>EnterpriseId</th>
+                    <th>EnterpriseTypeId</th>
+                    <th>EnterpriseName</th>
+                    <th>BRCNumber</th>
+                    <th>Category</th>
+                    <th>Country</th>
+                    <th>Region</th>
+                    <th>Uri</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="col-md-12 panel sub-content-panel">
+        <div id="name-group" class="form-group">
+            <label for="name">Enterprise</label>
+            @Html.DropDownListFor(m => m.EnterpriseId,
+                                  new SelectList(Model.EnterpriseId,
+                               "EnterpriseId", "EnterpriseName",
+                                                          Model.EnterpriseId.First().EnterpriseId), new { @class = "form-control custom-text-box  custom-label", id = "EnterpriseName" })
+        </div>
+        <buttn class="btn btn-default" id="add-enterprise-to-account">Add</buttn>
+        <buttn class="btn btn-update" id="remove-account-from-enterprise">Remove</buttn>
+    </div>
+
+
+    @section script{
+        <script>
+            var accountId;
+            var onAccountSelection = function () {
+                accountId = getTableSelectedRowKey($("#accounts-table"));
+                updateTableFromApi(enterprisesTable, "../../api/Accounts/GetAccountEnterprises/" + accountId, function () { });
+            }
+            var accountsTable = initiateTable1("accounts-table",
+                {
+                    "bLengthChange": false, "columns": [
+                        { "data": "Id" },
+                        { "data": "Name" },
+                        { "data": "Address" },
+                        { "data": "PhoneNumber" },
+                        { "data": "Status" },
+                        { "data": "Designation" }
+                    ]
+                },
+                onAccountSelection,
+                function () { }
+                );
+
+            // Initiated Enterprise DT
+            var onEnterpriseSelection = function () {
+                var id = getTableSelectedRowKey($("#enterprises-table"));
+                updateTableFromApi(accountsTable, "../../api/Enterprises/GetEnterpriseAccounts/" + id, function () { });
+            }
+
+            var enterprisesTable = initiateTable1("enterprises-table",
+                {
+                    "bLengthChange": false,
+                    "columns": [
+                        { "data": "EnterpriseId" },
+                        { "data": "EnterpriseTypeId" },
+                       { "data": "EnterpriseName" },
+                       { "data": "BRCNumber" },
+                       { "data": "Category" },
+                       { "data": "Country" },
+                       { "data": "Region" },
+                       { "data": "Uri" }
+                    ]
+                }
+                , onEnterpriseSelection, function () {
+                });
+
+
+            // Update Enterprises and Accounts DT from API
+            updateTableFromApi(enterprisesTable, "../../api/Enterprises/GetEnterprises", onEnterpriseSelection);
+            updateTableFromApi(accountsTable, "../../api/Accounts/GetAccounts", onEnterpriseSelection);
+
+            // onclick of add button send a json object
+            $("#add-enterprise-to-account").on("click", function () {
+                var enterpriseId = $("#EnterpriseName").val();
+                var data = {
+                    "EnterpriseId": enterpriseId,
+                    "Id": accountId
+                };
+
+                sendObjectToServer("../../api/Enterprises/AddEnterpriseAccount", data, function () {
+                    showModalMessage("Operation success", "Enterprise successfully added to the account. You can check the status of this enterprise system from the dashboard");
+                }, function () {
+                    showModalMessage("Operation failed", "Reload the page and try again.");
+                });
+            });
+
+            // onclick of remove button send a json object
+            $("#remove-account-from-enterprise").on("click", function () {
+                var enterpriseId = getTableSelectedRowKey($("#enterprises-table"));
+                var data = {
+                    "EnterpriseId": enterpriseId,
+                    "Id": accountId
+                };
+
+                sendObjectToServer("../../api/Enterprises/RemoveEnterpriseAccount", data, function () {
+                    showModalMessage("Operation Success", "Enterprise successfully removed from the Enterprise");
+                }, function () {
+                    showModalMessage("Operation failed", "Reload the page and try again.");
+                });
+            });
+
+            $(".navigation-help").html("Enterprises / Manage Enterprises");
+
+
+
+        </script>
+    }

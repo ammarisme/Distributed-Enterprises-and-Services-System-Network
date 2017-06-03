@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Enterprise Dashboard";
+}
+
+<title>@ViewBag.title</title>
+@if (User.IsInRole("Manager"))
+{
+    <div class="row">
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/ViewAll"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#00838F"><i class="material-icons">local_mall</i><p>Products</p></div></div></a>
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/ViewCurrentStock"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#607D8B"><i class="material-icons">store_mall_directory</i><p>Stocks</p></div></div></a>
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/ProcessSales"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#9E9E9E"><i class="material-icons">attach_money</i><p>Sales</p></div></div></a>
+    </div>
+    <div class="row">
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../PurchaseOrders/MyPurchaseOrders/ViewPurchaseOrders"><div class="col-md-4"><div class="col-md-12 opt-grid dark-gray"><i class="material-icons">event_note</i><p>P/O</p></div></div></a>
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AllCustomers"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#424242"><i class="material-icons">group</i><p>Customers</p></div></div></a>
+        <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Suppliers/MySuppliers/AllSuppliers"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#607D8B"><i class="material-icons">local_shipping</i><p>Suppliers</p></div></div></a>
+    </div>
+
+<div class="row">
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Quotations/MyQuotations/RecievedQuotations"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#006064"><i class="material-icons">transfer_within_a_station</i><p>Quotations</p></div></div></a>
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/AllAccounts"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#00838F" ><i class="material-icons">person</i><p>My Account</p></div></div></a>
+    <a withpjax="with-ajax" data-pjax=".content-panel" href=""><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#607D8B"><i class="material-icons">supervisor_account</i><p>Reports</p></div></div></a>
+</div>
+<div class="row">
+    <a withpjax="with-ajax" data-pjax=".content-panel" href=""><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#795548"><i class="material-icons">shopping_cart</i><p>Wholesale Portal</p></div></div></a>
+</div>
+<div class="row">
+</div>
+}
+@if (User.IsInRole("Staff")) { 
+<div class="row">
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/ViewAll"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#00838F" ><i class="material-icons">local_mall</i><p>Products</p></div></div></a>
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Stocks/MyStocks/ViewCurrentStock"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#607D8B"><i class="material-icons">store_mall_directory</i><p>Stocks</p></div></div></a>
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Sales/MySales/AddNewSale"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#9E9E9E"><i class="material-icons">attach_money</i><p>Sales</p></div></div></a>
+</div>
+<div class="row">
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/MyCustomers/AllCustomers"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#607D8B"><i class="material-icons">group</i><p>Customers</p></div></div></a>
+    <a withpjax="with-ajax" data-pjax=".content-panel" href="../../Accounts/MyAccount/MyProfile/"><div class="col-md-4"><div class="col-md-12 opt-grid" style="background-color:#0277BD"><i class="material-icons">person</i><p>My Account</p></div></div></a>
+</div>
+}
+@section script{
+    <script>
+        $(".navigation-help").html("Dashboard");
+    </script>
+
+    }

@@ -1,0 +1,96 @@
+﻿using System.Data.Entity;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using IntegrationSystem.Models;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
+namespace IntegrationSystem.DAL
+    /*This is the Data Access Layer
+     * All the classes that does the communication between the Database and 
+     * Programs will be coming within this namespace.
+     */
+{
+    /*This is the class that is used to access the database. 
+     * Instantiate this object and access variables as accessing database tables.
+     * 
+     * Database Name - IntegrationSystem
+     * Database Service - SQLExpress
+     * Intergrated Security  - True
+     */
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext()
+            : base("Data Source=.\\SQLEXPRESS;Initial Catalog=IntegrationSystem1;Integrated Security=True", throwIfV1Schema: false)
+        {
+
+        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //  Removing Entity Framework default conventions
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PrimaryKeyNameForeignKeyDiscoveryConvention>();
+
+            // Configuring Identity framework tables
+            modelBuilder.Entity<ApplicationUser>()
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<IdentityUserLogin>()
+                .HasKey(e => e.UserId);
+            modelBuilder.Entity<IdentityUserRole>()
+                .HasKey(e => e.UserId);
+        }
+        
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+        /*
+         Following are required tables for the integration system
+         */
+        public DbSet<Enterprise> Enterprises { get; set; }
+        public DbSet<EnterpriseService> EnterpriseServices { get; set; }
+        public DbSet<EnterpriseAccount> EnterpriseAccounts { get; set; }
+        public DbSet<AccountService> AccountServices { get; set; }
+        public DbSet<EnterpriseType> EnterpriseTypes { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        
+        // These tables stores Customer and Retailers resources information
+        //public DbSet<Customer> Customers { get; set; }
+        //public DbSet<Retailer> Retailers { get; set; }
+        
+        //These tables store Product and related information
+        //public DbSet<Product> Products { get; set; }
+        //public DbSet<SpecificationInProduct> SpecificationInProduct { get; set; }
+        
+        //// These tables store Product Stocks and Products in each Stocks information.
+        //public DbSet<ProductStocks> Stocks { get; set; }
+        //public DbSet<ProductInProductStocks> ProductsInProductStocks { get; set; }
+        // stock wasted tables
+        //public DbSet<ProductStockWasted> ProductStockWasteds { get; set; }
+        //public DbSet<ProductInProductStockWasted> ProductInProductStockWasteds { get; set; }
+
+
+
+        //// These tables store "Sales" Order information
+        //public DbSet<RetailSale> RetailSales { get; set; }
+        //public DbSet<ProductInRetailSale> ProductsInRetailSales { get; set; }
+        //public DbSet<ProductInRetailSaleReturn> ProductsInRetailSaleReturns { get; set; }
+
+        //public DbSet<WholesaleSale> WholesaleSales { get; set; }
+        //public DbSet<ProductInWholesaleSale> ProductsInWholesaleSales { get; set; }
+        //public DbSet<ProductInWholesaleSaleReturn> ProductsInWholesaleSaleReturns { get; set; }
+
+        //// These tables store "Purchase" Order information.
+        //public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        //public DbSet<ProductInPurchaseOrder> ProductsInPurchaseOrders { get; set; }
+
+        //// These tables store Quotation Request and Recieved Quotation information
+        //public DbSet<Quotation> Quotations { get; set; }
+        //public DbSet<ProductInQuotation> ProductsInQuotations { get; set; }
+    }
+}

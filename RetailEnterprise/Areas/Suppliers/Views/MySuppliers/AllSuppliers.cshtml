@@ -1,0 +1,75 @@
+﻿@model RetailEnterprise.Areas.Suppliers.Models.AllSuppliersViewModels
+@{
+    ViewBag.title = "All Suppliers";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="panel sub-content-panel col-md-12">
+    <table id="suppliers-table" class="display table table-hover table-striped " cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>SupplierId</th>
+                <th>Name</th>
+                <th>SupplierAddress</th>
+                <th>BusinessPhoneNumber</th>
+                <th>Status</th>
+                <th>BRCNumber</th>
+                <th>Category</th>
+                <th>Currency</th>
+                <th>Country</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var supplier in Model.suppliers)
+            {
+                <tr>
+                    <td> @supplier.SupplierId</td>
+                    <td> @supplier.SupplierName</td>
+                    <td> @supplier.SupplierAddress</td>
+                    <td> @supplier.BusinessPhoneNumber</td>
+                    <td> @supplier.Status</td>
+                    <td> @supplier.BRCNumber</td>
+                    <td> @supplier.Category</td>
+                    <td> @supplier.Currency</td>
+                    <td> @supplier.Country</td>
+                    <td> @supplier.Region</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+    <a href="#" id="generate-report-button" data-table="#suppliers-table" report-name="Suppliers" class="btn report-button">Get report</a>
+    </div>
+
+
+
+@section script{
+    <script>
+
+        // Initiated supplier DT
+        var onsupplierSelection = function () {
+            var id = getTableSelectedRowKey($("#suppliers-table"));
+        }
+
+        var suppliersTable = initiateTable1("suppliers-table", 
+            {
+                "bLengthChange": false, "columns": [
+                { "data" : "SupplierId" },
+                { "data" : "SupplierName" },
+                { "data" : "SupplierAddress" },
+                { "data" : "BusinessPhoneNumber" },
+                { "data" : "Status" },
+                { "data" : "BRCNumber" },
+                { "data" : "Category" },
+                { "data" : "Currency" },
+                { "data" : "Country" },
+                { "data" : "Region" }
+                ]
+            }
+            , onsupplierSelection, function () { });
+
+        $(".navigation-help").html("Suppliers / All suppliers");
+    </script>
+}

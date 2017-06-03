@@ -1,0 +1,52 @@
+﻿@model IntegrationSystem.Areas.Accounts.Models.AddAccountViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h5>@ViewBag.Title</h5>
+
+@* User Creation Form *@
+<div class="col-md-12 panel" id="user-registration-forms">
+
+    <form action="/Accounts/Account/Register" id="retailer-form" method="POST" >
+
+        <div id="name-group" class="form-group">
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">ConfirmPassword</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control custom-text-box" })
+        </div>
+        <label for="name">Address</label>
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control custom-text-box" })
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Designation</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Your role</label>
+            @Html.DropDownListFor(m => m.Id,
+                                  new SelectList(Model.Id,
+                               "Id", "Name",
+                                        Model.Id.First().Id), new { @class = "form-control custom-text-box  custom-label", id = "Name", name = "Id" })
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Register" />
+    </form>
+</div>
