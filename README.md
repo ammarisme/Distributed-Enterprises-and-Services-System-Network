@@ -169,5 +169,6 @@ Project 5: Wholesale Trading Portal
     |-- Web.config
 ```plaintext
 
+
 ### Conclusion
 This project successfully provides a robust and scalable solution for automating sales processes and integrating various enterprise systems in the domestic trade sector. Future enhancements include implementing the systems using PHP for extendability and developing a cloud-based solution for broader accessibility.
